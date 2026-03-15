@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>전문직을 위한 핸디레터</title>
+  
+  <!-- OG/Twitter meta tags -->
+  <meta property="og:title" content="전문직을 위한 핸디레터">
+  <meta property="og:description" content="매주 월요일 오전, 전문직 마케팅의 고민을 풀어드리는 뉴스레터">
+  <meta property="og:image" content="https://img2.stibee.com/8f8d64dc-344c-4b1f-959f-a8d58142fa48.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="전문직을 위한 핸디레터">
+  <meta name="twitter:description" content="매주 월요일 오전, 전문직 마케팅의 고민을 풀어드리는 뉴스레터">
+  <meta name="twitter:image" content="https://img2.stibee.com/8f8d64dc-344c-4b1f-959f-a8d58142fa48.png">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
+  
+  <style>
+    /* === CSS 디자인 시스템 === */
+    :root {
+      --ink: #0D0D0D;
+      --ink-mid: #3A3A3A;
+      --ink-soft: #7A7A7A;
+      --paper: #F8F5F0;
+      --gold: #B8882A;
+      --gold-light: #D4A84B;
+      --gold-faint: #F5EDD8;
+      --line: rgba(0, 0, 0, 0.1);
+      /* 다크 배경 위 paper 색상 알파 변형 */
+      --paper-55: rgba(248, 245, 240, 0.55);
+      --paper-45: rgba(248, 245, 240, 0.45);
+      --paper-40: rgba(248, 245, 240, 0.4);
+      --paper-35: rgba(248, 245, 240, 0.35);
+      --paper-06: rgba(248, 245, 240, 0.06);
+      --ink-hover: #1a1a1a;
+      --white-08: rgba(255, 255, 255, 0.08);
+    }
+
+    /* === 글로벌 리셋 === */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'Noto Sans KR', system-ui, -apple-system, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    /* === [1] Navigation === */
+    #nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: 60px;
+      background: var(--paper);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 5vw;
+      height: 100%;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-logo-en {
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 11px;
+      font-weight: 600;
+      font-family: 'Noto Sans KR', system-ui, -apple-system, sans-serif;
+    }
+
+    .nav-logo-kr {
+      font-family: 'Noto Serif KR', Georgia, 'Times New Roman', serif;
+      font-size: 14px;
+      margin-left: 8px;
+    }
+
+    .nav-cta {
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      padding: 8px 20px;
+      font-size: 13px;
+      transition: all 0.2s;
+    }
+
+    .nav-cta:hover {
+      background: var(--gold);
+      color: white;
+    }
+
+    /* === 섹션 공통 패턴 === */
+    .section-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 100px 5vw;
+    }
+
+    .section-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--gold);
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .section-label::before {
+      content: '';
+      width: 24px;
+      height: 1px;
+      background: var(--gold);
+      display: inline-flex;
+    }
+
+    .section-heading {
+      font-family: 'Noto Serif KR', Georgia, 'Times New Roman', serif;
+      font-size: clamp(26px, 3vw, 36px);
+      font-weight: 300;
+      line-height: 1.4;
+      color: var(--ink);
+    }
+
+    /* === [2] Hero === */
+    #hero {
+      min-height: 100vh;
+      min-height: 100dvh;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 120px 5vw 100px;
+    }
+
+    .hero-h1 {
+      font-family: 'Noto Serif KR', Georgia, 'Times New Roman', serif;
+      font-size: clamp(38px, 5vw, 64px);
+      font-weight: 300;
+      line-height: 1.2;
+      color: var(--ink);
+    }
+
+    .hero-h1 em {
+      font-style: normal;
+      color: var(--gold);
+    }
+
+    .hero-desc {
+      font-size: 15px;
+      color: var(--ink-mid);
+      font-weight: 300;
+      line-height: 1.8;
+      margin-top: 24px;
+    }
+
+    .hero-meta {
+      font-size: 13px;
+      color: var(--ink-soft);
+      margin-top: 20px;
+    }
+
+    .subscribe-card {
+      background: white;
+      padding: 40px;
+      border: 1px solid var(--line);
+    }
+
+    .subscribe-card-heading {
+      font-family: 'Noto Serif KR', Georgia, 'Times New Roman', serif;
+      font-size: 22px;
+      font-weight: 400;
+      margin-bottom: 8px;
+    }
+
+    .subscribe-card-sub {
+      font-size: 14px;
+      color: var(--ink-soft);
+      margin-bottom: 28px;
+    }
+
+    .subscribe-card-note {
+      font-size: 13px;
+      color: var(--ink-soft);
+      margin-top: 16px;
+    }
+
+    /* === [3] 대상1 — 직군별 === */
+    .profession-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--line);
+      margin-top: 48px;
+    }
+
+    .profession-card {
+      background: var(--paper);
+      padding: 44px 36px;
+      transition: background 0.2s;
+    }
+
+    .profession-card:hover {
+      background: white;
+    }
+
+    .profession-number {
+      font-family: 'Noto Serif KR', Georgia, 'Times New Roman', serif;
+      font-size: 48px;
+      color: var(--gold-light);
+      opacity: 0.3;
+      line-height: 1;
+      margin-bottom: 20px;
+    }
+
+    .profession-title {
+      font-family: 'Noto Serif KR', Georgia, 'Times New Roman', serif;
+      font-size: 20px;
+      font-weight: 400;
+      margin-bottom: 16px;
+    }
+
+    .profession-tags {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .profession-tag {
+      font-size: 12px;
+      display: inline-block;
+      border: 1px solid var(--gold);
+      border-radius: 999px;
+      padding: 4px 12px;
+      margin: 0 6px 6px 0;
+      color: var(--gold);
+    }
+
+    /* === [4] 대상2 — 규모별 === */
+    #target-scale {
+      background: var(--ink);
+    }
+
+    .scale-heading {
+      color: var(--paper);
+    }
+
+    .scale-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--white-08);
+      margin-top: 48px;
+    }
+
+    .scale-card {
+      background: var(--ink);
+      padding: 40px 36px;
+      transition: background 0.2s;
+    }
+
+    .scale-card:hover {
+      background: var(--ink-hover);
+    }
+
+    .scale-number {
+      font-family: 'Noto Serif KR', Georgia, 'Times New Roman', serif;
+      font-size: 48px;
+      color: var(--gold-light);
+      opacity: 0.2;
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+
+    .scale-badge {
+      font-size: 11px;
+      text-transform: uppercase;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      padding: 3px 10px;
+      display: inline-block;
+      margin-bottom: 12px;
+    }
+
+    .scale-title {
+      font-family: 'Noto Serif KR', Georgia, 'Times New Roman', serif;
+      font-size: 18px;
+      color: var(--paper);
+      font-weight: 400;
+      margin-bottom: 8px;
+    }
+
+    .scale-sub {
+      font-size: 13px;
+      color: var(--paper-45);
+      font-weight: 300;
+    }
+
+    /* === [5] 이럴 때 좋다 === */
+    .benefits-inner {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .benefits-label {
+      text-align: center;
+    }
+
+    .benefits-heading {
+      text-align: center;
+    }
+
+    .benefits-sub {
+      font-size: 15px;
+      color: var(--ink-soft);
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .benefit-item {
+      padding: 40px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .benefit-item:last-child {
+      border-bottom: none;
+    }
+
+    .benefit-number {
+      font-family: 'Noto Serif KR', Georgia, 'Times New Roman', serif;
+      font-size: 40px;
+      color: var(--gold-light);
+      opacity: 0.4;
+      margin-bottom: 8px;
+      line-height: 1;
+    }
+
+    .benefit-title {
+      font-family: 'Noto Serif KR', Georgia, 'Times New Roman', serif;
+      font-size: 20px;
+      font-weight: 400;
+      margin-bottom: 12px;
+    }
+
+    .benefit-desc {
+      font-size: 15px;
+      color: var(--ink-mid);
+      font-weight: 300;
+      line-height: 1.9;
+    }
+
+    /* === [6] 아카이브 === */
+    /* archive-header / blog-header 공통 레이아웃 */
+    .archive-header,
+    .blog-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 40px;
+    }
+
+    .archive-all-link {
+      color: var(--gold);
+      font-size: 14px;
+    }
+
+    .archive-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    /* archive-card 공통 기반 */
+    .archive-card,
+    .archive-card-locked {
+      display: block;
+      background: var(--paper);
+      padding: 36px;
+      color: var(--ink);
+    }
+
+    .archive-card {
+      transition: background 0.2s;
+    }
+
+    a.archive-card:hover {
+      background: white;
+    }
+
+    /* archive-badge 공통 기반 */
+    .archive-badge,
+    .archive-badge-locked {
+      font-size: 11px;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    .archive-badge-locked {
+      border: 1px solid var(--gold);
+      padding: 3px 10px;
+      display: inline-block;
+    }
+
+    .archive-title {
+      font-family: 'Noto Serif KR', Georgia, 'Times New Roman', serif;
+      font-size: 17px;
+      font-weight: 400;
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+
+    .archive-desc {
+      font-size: 14px;
+      color: var(--ink-mid);
+      line-height: 1.7;
+    }
+
+    .archive-desc-locked {
+      position: relative;
+    }
+
+    .archive-desc-locked p {
+      font-size: 14px;
+      color: var(--ink-mid);
+      line-height: 1.7;
+      filter: blur(3.5px);
+      user-select: none;
+      pointer-events: none;
+    }
+
+    .archive-desc-locked::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: linear-gradient(transparent, var(--paper));
+    }
+
+    .archive-footer {
+      border-top: 1px solid var(--line);
+      padding-top: 16px;
+      margin-top: 20px;
+      font-size: 12px;
+      color: var(--ink-soft);
+    }
+
+    .archive-card-locked {
+      cursor: default;
+    }
+
+    /* === [7] 블로그 === */
+    .blog-more-link {
+      color: var(--gold);
+      font-size: 14px;
+    }
+
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .blog-card {
+      display: block;
+      color: var(--ink);
+      transition: background 0.2s;
+    }
+
+    .blog-card:hover {
+      background: white;
+    }
+
+    .blog-thumb {
+      padding-top: 56.25%;
+      position: relative;
+      overflow: hidden;
+      background: var(--gold-faint);
+    }
+
+    .blog-thumb img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .blog-category {
+      font-size: 11px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin: 16px 0 8px;
+      padding: 0 16px;
+    }
+
+    .blog-title {
+      font-family: 'Noto Serif KR', Georgia, 'Times New Roman', serif;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.5;
+      padding: 0 16px;
+    }
+
+    .blog-date {
+      font-size: 12px;
+      color: var(--ink-soft);
+      margin-top: 8px;
+      padding: 0 16px 16px;
+    }
+
+    /* === [8] Footer CTA === */
+    #footer-cta {
+      background: var(--ink);
+      padding: 100px 5vw;
+    }
+
+    .footer-cta-inner {
+      max-width: 640px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .footer-cta-heading {
+      font-family: 'Noto Serif KR', Georgia, 'Times New Roman', serif;
+      font-size: clamp(28px, 3.5vw, 44px);
+      font-weight: 300;
+      color: var(--paper);
+      line-height: 1.3;
+    }
+
+    .footer-cta-heading em {
+      color: var(--gold-light);
+      font-style: normal;
+    }
+
+    .footer-cta-sub {
+      font-size: 15px;
+      color: var(--paper-55);
+      font-weight: 300;
+      margin-bottom: 36px;
+      margin-top: 20px;
+    }
+
+    .footer-cta-note {
+      font-size: 13px;
+      color: var(--paper-40);
+      margin-top: 16px;
+    }
+
+    /* === [9] Footer === */
+    #footer {
+      background: var(--ink);
+      padding: 40px 5vw;
+      border-top: 1px solid var(--paper-06);
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-left {
+      font-size: 13px;
+    }
+
+    .footer-company {
+      color: var(--gold-light);
+    }
+
+    .footer-sep {
+      color: var(--paper-35);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-link {
+      font-size: 12px;
+      color: var(--paper-35);
+      transition: color 0.2s;
+    }
+
+    .footer-link:hover {
+      color: var(--gold-light);
+    }
+
+    /* === 반응형 === */
+    @media (max-width: 768px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        padding: 80px 5vw 60px;
+      }
+
+      #hero {
+        min-height: auto;
+      }
+
+      .profession-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .scale-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .archive-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .blog-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        text-align: center;
+        gap: 16px;
+      }
+
+      .section-container {
+        padding: 60px 5vw;
+      }
+
+      #footer-cta {
+        padding: 60px 5vw;
+      }
+
+      .archive-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+      }
+
+      .blog-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="nav" aria-label="주 내비게이션">
+    <div class="nav-inner">
+      <div class="nav-logo">
+        <span class="nav-logo-en">HANDY</span>
+        <span class="nav-logo-kr">핸디레터</span>
+      </div>
+      <a href="#subscribe" class="nav-cta">무료 구독하기</a>
+    </div>
+  </nav>
+
+  <section id="hero" aria-label="히어로">
+    <div class="hero-grid">
+      <div class="hero-left">
+        <div class="section-label">매주 월요일 발행 · 무료 구독</div>
+        <h1 class="hero-h1">전문직 사무소의<br><em>마케팅 고민,</em><br>일주일에 한 번 해결하세요</h1>
+        <p class="hero-desc">변호사, 세무사, 노무사를 위한 실전 마케팅 뉴스레터.<br>현장에서 통하는 인사이트만 골라 매주 월요일 아침에 드립니다.</p>
+        <p class="hero-meta">매주 월요일 · 5분 분량 · 무료 · 언제든 취소</p>
+      </div>
+      <div class="subscribe-card" id="subscribe">
+        <h2 class="subscribe-card-heading">지금 바로 구독하기</h2>
+        <p class="subscribe-card-sub">구독 완료 시 지난 발행본 전체 아카이브를 바로 읽을 수 있습니다</p>
+        <!-- TODO: 스티비 임베드 코드로 교체 (리스트 → 폼 관리 → 임베드) -->
+        <div id="stibee-embed-hero"></div>
+        <p class="subscribe-card-note"><span aria-hidden="true">✓</span> 언제든 한 클릭으로 수신 취소할 수 있습니다</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="target-profession" aria-label="대상 직군">
+    <div class="section-container">
+      <div class="section-label">누구를 위한 뉴스레터인가요</div>
+      <h2 class="section-heading">변호사, 세무사, 노무사 —<br>전문직 마케팅은 일반 마케팅과 다릅니다</h2>
+      <div class="profession-grid">
+        <div class="profession-card">
+          <div class="profession-number">01</div>
+          <h3 class="profession-title">변호사 · 법무사</h3>
+          <div class="profession-tags">
+            <span class="profession-tag">#형사</span>
+            <span class="profession-tag">#민사</span>
+            <span class="profession-tag">#이혼</span>
+            <span class="profession-tag">#상속</span>
+            <span class="profession-tag">#부동산</span>
+          </div>
+        </div>
+        <div class="profession-card">
+          <div class="profession-number">02</div>
+          <h3 class="profession-title">세무사 · 회계사</h3>
+          <div class="profession-tags">
+            <span class="profession-tag">#종합소득세</span>
+            <span class="profession-tag">#법인세무</span>
+            <span class="profession-tag">#양도세</span>
+            <span class="profession-tag">#절세컨설팅</span>
+          </div>
+        </div>
+        <div class="profession-card">
+          <div class="profession-number">03</div>
+          <h3 class="profession-title">노무사</h3>
+          <div class="profession-tags">
+            <span class="profession-tag">#B2B수임</span>
+            <span class="profession-tag">#취업규칙</span>
+            <span class="profession-tag">#노동분쟁</span>
+            <span class="profession-tag">#HR컨설팅</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="target-scale" aria-label="사무소 규모별 대상">
+    <div class="section-container">
+      <div class="section-label">사무소 규모에 맞는 인사이트를</div>
+      <h2 class="section-heading scale-heading">지금 어느 단계에 계신가요?</h2>
+      <div class="scale-grid">
+        <div class="scale-card">
+          <div class="scale-number">01</div>
+          <span class="scale-badge">개업 초기</span>
+          <h3 class="scale-title">마케팅, 어디서부터 시작해야 할지 모르는 분</h3>
+          <p class="scale-sub">블로그 개설부터 첫 의뢰인 확보까지</p>
+        </div>
+        <div class="scale-card">
+          <div class="scale-number">02</div>
+          <span class="scale-badge">성장 단계</span>
+          <h3 class="scale-title">의뢰인은 있지만 꾸준한 유입이 불안한 분</h3>
+          <p class="scale-sub">검색 유입 채널 강화와 콘텐츠 루틴 만들기</p>
+        </div>
+        <div class="scale-card">
+          <div class="scale-number">03</div>
+          <span class="scale-badge">법인 · 확장기</span>
+          <h3 class="scale-title">팀 단위로 마케팅을 체계화하고 싶은 분</h3>
+          <p class="scale-sub">브랜드 포지셔닝과 복수 채널 운영 전략</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="benefits" aria-label="핸디레터가 필요한 순간">
+    <div class="section-container">
+      <div class="benefits-inner">
+        <div class="section-label benefits-label">핸디레터가 필요한 순간</div>
+        <h2 class="section-heading benefits-heading">이럴 때 핸디레터가 딱 맞아요</h2>
+        <p class="benefits-sub">한 번만 봐도 바로 공감할 수 있을 거예요</p>
+
+        <div class="benefit-item">
+          <div class="benefit-number">1</div>
+          <h3 class="benefit-title">블로그를 열었는데 아무도 찾아오지 않을 때</h3>
+          <p class="benefit-desc">개설만 해두고 뭘 써야 할지, 어떻게 검색에 걸리게 해야 할지 모른 채 시간만 흘러가고 있다면. 전문직 블로그에서 실제로 작동하는 구조를 바로 적용해보세요.</p>
+        </div>
+
+        <div class="benefit-item">
+          <div class="benefit-number">2</div>
+          <h3 class="benefit-title">"온라인 마케팅 해봤는데 별 효과 없었어요"라고 느낄 때</h3>
+          <p class="benefit-desc">광고 대행사에 맡겼다가 실망한 경험, 혼자 해봤다가 지쳐서 그만둔 경험. 전문직 마케팅이 잘 안 되는 이유는 따로 있습니다.</p>
+        </div>
+
+        <div class="benefit-item">
+          <div class="benefit-number">3</div>
+          <h3 class="benefit-title">경쟁 사무소는 어떻게 의뢰인을 모으는지 궁금할 때</h3>
+          <p class="benefit-desc">검색하면 상위에 보이는 그 사무소, 블로그 글은 많지 않은데 왜 잘 되는 건지. 실제로 효과를 낸 케이스를 분석해서 전달합니다.</p>
+        </div>
+
+        <div class="benefit-item">
+          <div class="benefit-number">4</div>
+          <h3 class="benefit-title">AI 도구를 쓰고 싶은데 어디서부터 시작해야 할지 모를 때</h3>
+          <p class="benefit-desc">ChatGPT나 Claude를 마케팅에 활용하고 싶은데 막막하다면. 전문직 사무소에 맞게 바로 써먹을 수 있는 방법으로 풀어드립니다.</p>
+        </div>
+
+        <div class="benefit-item">
+          <div class="benefit-number">5</div>
+          <h3 class="benefit-title">광고 규제 때문에 마케팅을 포기했을 때</h3>
+          <p class="benefit-desc">변호사법, 세무사법... 뭘 해도 걸릴 것 같아서 아예 안 하게 되는 경우. 규제 안에서도 충분히 할 수 있는 방법이 있습니다.</p>
+        </div>
+
+        <div class="benefit-item">
+          <div class="benefit-number">6</div>
+          <h3 class="benefit-title">뭔가 해야 하는 건 아는데 매일 바빠서 못 하고 있을 때</h3>
+          <p class="benefit-desc">진료하고, 상담하고, 서류 쓰다 보면 하루가 끝납니다. 5분이면 읽을 수 있게. 매주 월요일 아침에만 챙기면 됩니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="archive" aria-label="지난 핸디레터 아카이브">
+    <div class="section-container">
+      <div class="archive-header">
+        <div>
+          <div class="section-label">지난 핸디레터</div>
+          <h2 class="section-heading">구독 전에 먼저 읽어보세요</h2>
+        </div>
+        <!-- TODO: STIBEE_ARCHIVE_URL → 스티비 공개 아카이브 URL로 교체 -->
+        <a href="STIBEE_ARCHIVE_URL" class="archive-all-link">전체 보기 →</a>
+      </div>
+      <div class="archive-grid">
+        <!-- TODO: STIBEE_LATEST_ISSUE_URL → 스티비 최신 발행본 '웹에서 보기' URL로 교체 -->
+        <a href="STIBEE_LATEST_ISSUE_URL" class="archive-card">
+          <div class="archive-badge">최신호 · 무료 공개</div>
+          <h3 class="archive-title">네이버 블로그 상위 노출, 2025년엔 이게 달라졌습니다</h3>
+          <p class="archive-desc">스마트블록 개편 이후 전문직 키워드 노출 로직이 바뀌었습니다. 형사·이혼·세금 관련 키워드에서 실제로 효과를 낸 구조를 분석합니다.</p>
+          <div class="archive-footer">2025년 3월 10일  |  읽기 →</div>
+        </a>
+        <div class="archive-card-locked" aria-disabled="true" role="article">
+          <div class="archive-badge-locked"><span aria-hidden="true">✦</span> 구독자 전용</div>
+          <h3 class="archive-title">AI로 블로그 포스팅 10개를 3시간 만에 만든 법</h3>
+          <div class="archive-desc-locked" aria-label="구독자 전용 콘텐츠">
+            <p>실제 전문직 사무소에서 AI 도구를 활용해 블로그 콘텐츠를 대량으로 만든 과정을 단계별로 정리했습니다. 프롬프트 설계부터 퇴고까지.</p>
+          </div>
+          <div class="archive-footer">2025년 3월 3일  |  구독 후 열람</div>
+        </div>
+        <div class="archive-card-locked" aria-disabled="true" role="article">
+          <div class="archive-badge-locked"><span aria-hidden="true">✦</span> 구독자 전용</div>
+          <h3 class="archive-title">세무사 사무소가 유튜브를 시작하면 안 되는 이유</h3>
+          <div class="archive-desc-locked" aria-label="구독자 전용 콘텐츠">
+            <p>유튜브는 만능이 아닙니다. 세무사 사무소의 특성상 블로그와 검색 유입이 더 효과적인 이유를 데이터와 함께 분석합니다.</p>
+          </div>
+          <div class="archive-footer">2025년 2월 24일  |  구독 후 열람</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="blog" aria-label="블로그">
+    <div class="section-container">
+      <div class="blog-header">
+        <div>
+          <div class="section-label">블로그</div>
+          <h2 class="section-heading">꼭 알아야 할 전문직 마케팅 이야기</h2>
+        </div>
+        <a href="#" class="blog-more-link">블로그 더보기 →</a>
+      </div>
+      <div class="blog-grid">
+        <a href="#" class="blog-card">
+          <div class="blog-thumb">
+            <img src="BLOG_THUMB_1" alt="네이버 블로그 최적화">
+          </div>
+          <div class="blog-category">SEO</div>
+          <h3 class="blog-title">네이버 블로그 최적화, 전문직 키워드는 다르게 접근해야 합니다</h3>
+          <div class="blog-date">2025-03-10</div>
+        </a>
+        <a href="#" class="blog-card">
+          <div class="blog-thumb">
+            <img src="BLOG_THUMB_2" alt="Claude로 블로그 초안 뽑는 법">
+          </div>
+          <div class="blog-category">AI 활용</div>
+          <h3 class="blog-title">Claude로 블로그 초안 뽑는 법 — 변호사 사무소 실제 사례</h3>
+          <div class="blog-date">2025-03-03</div>
+        </a>
+        <a href="#" class="blog-card">
+          <div class="blog-thumb">
+            <img src="BLOG_THUMB_3" alt="전문직 사무소 블로그 브랜딩">
+          </div>
+          <div class="blog-category">브랜딩</div>
+          <h3 class="blog-title">전문직 사무소 블로그, 왜 이름만 바꿔도 문의가 늘까</h3>
+          <div class="blog-date">2025-02-24</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="footer-cta" aria-label="구독 유도">
+    <div class="footer-cta-inner">
+      <h2 class="footer-cta-heading">지금 구독하면<br><em>지난 발행본 전체를</em> 바로 읽을 수 있습니다</h2>
+      <p class="footer-cta-sub">무료이며, 언제든 한 클릭으로 취소할 수 있습니다</p>
+      <!-- TODO: 스티비 임베드 코드로 교체 (Hero 폼과 동일) -->
+      <div id="stibee-embed-footer"></div>
+      <p class="footer-cta-note"><span aria-hidden="true">✓</span> 매주 월요일 · 5분 분량 · 스팸 없음</p>
+    </div>
+  </section>
+
+  <footer id="footer">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <span class="footer-company">핸디컴퍼니</span><span class="footer-sep"> · 전문직을 위한 핸디레터</span>
+      </div>
+      <div class="footer-links">
+        <a href="#" class="footer-link">핸디컴퍼니 홈페이지</a>
+        <a href="#" class="footer-link">개인정보처리방침</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
