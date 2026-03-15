@@ -626,6 +626,96 @@
       color: var(--gold-light);
     }
 
+    /* === 구독 폼 === */
+    .subscribe-form {
+      display: flex;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .subscribe-input {
+      flex: 1;
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      background: var(--paper);
+      font-size: 15px;
+      font-family: inherit;
+      color: var(--ink);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .subscribe-input:focus {
+      border-color: var(--gold);
+    }
+
+    .subscribe-input::placeholder {
+      color: var(--ink-soft);
+    }
+
+    .subscribe-btn {
+      padding: 14px 28px;
+      background: var(--gold);
+      color: white;
+      border: none;
+      font-size: 15px;
+      font-weight: 500;
+      font-family: inherit;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+
+    .subscribe-btn:hover {
+      background: var(--gold-light);
+    }
+
+    .subscribe-form-policy {
+      font-size: 11px;
+      color: var(--ink-soft);
+      margin-top: 12px;
+      line-height: 1.6;
+    }
+
+    .subscribe-msg {
+      display: none;
+      margin-top: 12px;
+      padding: 12px 16px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .subscribe-msg.success {
+      display: block;
+      background: var(--gold-faint);
+      color: var(--gold);
+    }
+
+    .subscribe-msg.error {
+      display: block;
+      background: #fde8e8;
+      color: #c53030;
+    }
+
+    /* Footer CTA 구독 폼 (다크 배경용) */
+    .footer-cta-inner .subscribe-input {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.15);
+      color: var(--paper);
+    }
+
+    .footer-cta-inner .subscribe-input::placeholder {
+      color: var(--paper-45);
+    }
+
+    .footer-cta-inner .subscribe-input:focus {
+      border-color: var(--gold-light);
+    }
+
+    .footer-cta-inner .subscribe-form-policy {
+      color: var(--paper-35);
+    }
+
     /* === 반응형 === */
     @media (max-width: 768px) {
       .hero-grid {
@@ -679,6 +769,14 @@
         align-items: flex-start;
         gap: 16px;
       }
+
+      .subscribe-form {
+        flex-direction: column;
+      }
+
+      .subscribe-btn {
+        padding: 14px;
+      }
     }
   </style>
 </head>
@@ -705,8 +803,12 @@
       <div class="subscribe-card" id="subscribe">
         <h2 class="subscribe-card-heading">지금 바로 구독하기</h2>
         <p class="subscribe-card-sub">구독 완료 시 지난 발행본 전체 아카이브를 바로 읽을 수 있습니다</p>
-        <!-- TODO: 스티비 임베드 코드로 교체 (리스트 → 폼 관리 → 임베드) -->
-        <div id="stibee-embed-hero"></div>
+        <form class="subscribe-form" data-form="hero" onsubmit="return handleSubscribe(event)">
+          <input type="email" class="subscribe-input" placeholder="이메일 주소를 입력하세요" required>
+          <button type="submit" class="subscribe-btn">구독하기</button>
+        </form>
+        <p class="subscribe-form-policy">뉴스레터 발송을 위한 최소한의 개인정보를 수집하고 이용합니다. 수집된 정보는 발송 외 다른 목적으로 이용되지 않으며, 구독을 해지할 경우 즉시 파기됩니다.</p>
+        <div class="subscribe-msg" data-msg="hero"></div>
         <p class="subscribe-card-note"><span aria-hidden="true">✓</span> 언제든 한 클릭으로 수신 취소할 수 있습니다</p>
       </div>
     </div>
@@ -832,32 +934,30 @@
           <div class="section-label">지난 핸디레터</div>
           <h2 class="section-heading">구독 전에 먼저 읽어보세요</h2>
         </div>
-        <!-- TODO: STIBEE_ARCHIVE_URL → 스티비 공개 아카이브 URL로 교체 -->
-        <a href="STIBEE_ARCHIVE_URL" class="archive-all-link">전체 보기 →</a>
+<a href="https://handy-professional.stibee.com/" target="_blank" class="archive-all-link">전체 보기 →</a>
       </div>
       <div class="archive-grid">
-        <!-- TODO: STIBEE_LATEST_ISSUE_URL → 스티비 최신 발행본 '웹에서 보기' URL로 교체 -->
-        <a href="STIBEE_LATEST_ISSUE_URL" class="archive-card">
+<a href="https://handy-professional.stibee.com/p/4" target="_blank" class="archive-card">
           <div class="archive-badge">최신호 · 무료 공개</div>
-          <h3 class="archive-title">네이버 블로그 상위 노출, 2025년엔 이게 달라졌습니다</h3>
-          <p class="archive-desc">스마트블록 개편 이후 전문직 키워드 노출 로직이 바뀌었습니다. 형사·이혼·세금 관련 키워드에서 실제로 효과를 낸 구조를 분석합니다.</p>
-          <div class="archive-footer">2025년 3월 10일  |  읽기 →</div>
+          <h3 class="archive-title">'오픈AI'와 '앤트로픽'의 CEO가 말하는 시대, 우리가 해야 할 일은?</h3>
+          <p class="archive-desc">여러분의 전문 지식을 서비스로 시장에 내놓는 순간, 여러분의 가치는 플랫폼 내 최저가에 수렴하게 됩니다.</p>
+          <div class="archive-footer">2026년 3월 9일  |  읽기 →</div>
         </a>
         <div class="archive-card-locked" aria-disabled="true" role="article">
           <div class="archive-badge-locked"><span aria-hidden="true">✦</span> 구독자 전용</div>
-          <h3 class="archive-title">AI로 블로그 포스팅 10개를 3시간 만에 만든 법</h3>
+          <h3 class="archive-title">전문직 마케팅 성공의 시작, "누구에게?"가 중요한 이유</h3>
           <div class="archive-desc-locked" aria-label="구독자 전용 콘텐츠">
-            <p>실제 전문직 사무소에서 AI 도구를 활용해 블로그 콘텐츠를 대량으로 만든 과정을 단계별로 정리했습니다. 프롬프트 설계부터 퇴고까지.</p>
+            <p>여러분의 전문 지식을 서비스로 시장에 내놓는 순간, 여러분의 가치는 플랫폼 내 최저가에 수렴하게 됩니다.</p>
           </div>
-          <div class="archive-footer">2025년 3월 3일  |  구독 후 열람</div>
+          <div class="archive-footer">2026년 2월 23일  |  구독 후 열람</div>
         </div>
         <div class="archive-card-locked" aria-disabled="true" role="article">
           <div class="archive-badge-locked"><span aria-hidden="true">✦</span> 구독자 전용</div>
-          <h3 class="archive-title">세무사 사무소가 유튜브를 시작하면 안 되는 이유</h3>
+          <h3 class="archive-title">채용공고에서 2배 이상 증가한 이 '직무', AI시대 집중할 한 가지</h3>
           <div class="archive-desc-locked" aria-label="구독자 전용 콘텐츠">
-            <p>유튜브는 만능이 아닙니다. 세무사 사무소의 특성상 블로그와 검색 유입이 더 효과적인 이유를 데이터와 함께 분석합니다.</p>
+            <p>링크드인에 따르면, 1년 동안 미국에서 "스토리텔러"라는 용어가 포함된 채용 공고의 비율이 두 배로 증가했습니다.</p>
           </div>
-          <div class="archive-footer">2025년 2월 24일  |  구독 후 열람</div>
+          <div class="archive-footer">2026년 2월 9일  |  구독 후 열람</div>
         </div>
       </div>
     </div>
@@ -873,29 +973,23 @@
         <a href="#" class="blog-more-link">블로그 더보기 →</a>
       </div>
       <div class="blog-grid">
-        <a href="#" class="blog-card">
-          <div class="blog-thumb">
-            <img src="BLOG_THUMB_1" alt="네이버 블로그 최적화">
-          </div>
-          <div class="blog-category">SEO</div>
-          <h3 class="blog-title">네이버 블로그 최적화, 전문직 키워드는 다르게 접근해야 합니다</h3>
-          <div class="blog-date">2025-03-10</div>
+        <a href="https://handy-professional.stibee.com/p/4" target="_blank" class="blog-card">
+          <div class="blog-thumb"></div>
+          <div class="blog-category">AI · 전략</div>
+          <h3 class="blog-title">'오픈AI'와 '앤트로픽'의 CEO가 말하는 시대, 우리가 해야 할 일은?</h3>
+          <div class="blog-date">2026-03-09</div>
         </a>
-        <a href="#" class="blog-card">
-          <div class="blog-thumb">
-            <img src="BLOG_THUMB_2" alt="Claude로 블로그 초안 뽑는 법">
-          </div>
-          <div class="blog-category">AI 활용</div>
-          <h3 class="blog-title">Claude로 블로그 초안 뽑는 법 — 변호사 사무소 실제 사례</h3>
-          <div class="blog-date">2025-03-03</div>
+        <a href="https://handy-professional.stibee.com/p/3" target="_blank" class="blog-card">
+          <div class="blog-thumb"></div>
+          <div class="blog-category">마케팅</div>
+          <h3 class="blog-title">전문직 마케팅 성공의 시작, "누구에게?"가 중요한 이유</h3>
+          <div class="blog-date">2026-02-23</div>
         </a>
-        <a href="#" class="blog-card">
-          <div class="blog-thumb">
-            <img src="BLOG_THUMB_3" alt="전문직 사무소 블로그 브랜딩">
-          </div>
-          <div class="blog-category">브랜딩</div>
-          <h3 class="blog-title">전문직 사무소 블로그, 왜 이름만 바꿔도 문의가 늘까</h3>
-          <div class="blog-date">2025-02-24</div>
+        <a href="https://handy-professional.stibee.com/p/2" target="_blank" class="blog-card">
+          <div class="blog-thumb"></div>
+          <div class="blog-category">커리어</div>
+          <h3 class="blog-title">채용공고에서 2배 이상 증가한 이 '직무', AI시대 집중할 한 가지</h3>
+          <div class="blog-date">2026-02-09</div>
         </a>
       </div>
     </div>
@@ -905,8 +999,12 @@
     <div class="footer-cta-inner">
       <h2 class="footer-cta-heading">지금 구독하면<br><em>지난 발행본 전체를</em> 바로 읽을 수 있습니다</h2>
       <p class="footer-cta-sub">무료이며, 언제든 한 클릭으로 취소할 수 있습니다</p>
-      <!-- TODO: 스티비 임베드 코드로 교체 (Hero 폼과 동일) -->
-      <div id="stibee-embed-footer"></div>
+      <form class="subscribe-form" data-form="footer" onsubmit="return handleSubscribe(event)">
+        <input type="email" class="subscribe-input" placeholder="이메일 주소를 입력하세요" required>
+        <button type="submit" class="subscribe-btn">구독하기</button>
+      </form>
+      <p class="subscribe-form-policy" style="color: var(--paper-35);">뉴스레터 발송을 위한 최소한의 개인정보를 수집하고 이용합니다.</p>
+      <div class="subscribe-msg" data-msg="footer"></div>
       <p class="footer-cta-note"><span aria-hidden="true">✓</span> 매주 월요일 · 5분 분량 · 스팸 없음</p>
     </div>
   </section>
@@ -923,5 +1021,32 @@
     </div>
   </footer>
 
+  <script>
+    const STIBEE_SUBSCRIBE_URL = 'https://handy-professional.stibee.com/subscribe';
+
+    function handleSubscribe(e) {
+      e.preventDefault();
+      const form = e.target;
+      const email = form.querySelector('.subscribe-input').value.trim();
+      const msgEl = form.nextElementSibling?.nextElementSibling || form.parentElement.querySelector('.subscribe-msg');
+
+      if (!email || !email.includes('@')) {
+        if (msgEl) {
+          msgEl.className = 'subscribe-msg error';
+          msgEl.textContent = '올바른 이메일 주소를 입력해주세요.';
+        }
+        return false;
+      }
+
+      window.open(STIBEE_SUBSCRIBE_URL, '_blank');
+
+      if (msgEl) {
+        msgEl.className = 'subscribe-msg success';
+        msgEl.textContent = '스티비 구독 페이지로 이동합니다. 이메일을 입력하고 구독을 완료해주세요!';
+      }
+
+      return false;
+    }
+  </script>
 </body>
 </html>
