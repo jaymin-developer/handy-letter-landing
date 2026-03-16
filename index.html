@@ -15,6 +15,23 @@
   <meta name="twitter:description" content="옆 사무소는 의뢰인이 넘치는데, 나만 모르는 게 있는 걸까? 매주 월요일, 전문직 마케팅의 정답을 5분 안에.">
   <meta name="twitter:image" content="https://img2.stibee.com/8f8d64dc-344c-4b1f-959f-a8d58142fa48.png">
 
+  <script>
+    const structuredData = {
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      name: '전문직을 위한 핸디레터',
+      description: '매주 월요일, 변호사·세무사·노무사를 위한 마케팅 뉴스레터',
+      publisher: {
+        '@type': 'Organization',
+        name: '핸디컴퍼니'
+      }
+    };
+    const structuredDataScript = document.createElement('script');
+    structuredDataScript.type = 'application/ld+json';
+    structuredDataScript.text = JSON.stringify(structuredData);
+    document.head.appendChild(structuredDataScript);
+  </script>
+
   <!-- Favicon -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📮</text></svg>">
 
@@ -84,6 +101,17 @@
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: var(--ink); }
     ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: var(--gold);
+      z-index: 220;
+      width: 0%;
+      transition: none;
+    }
 
     /* ======================================
        NAVIGATION
@@ -162,7 +190,7 @@
        ====================================== */
     #hero {
       min-height: 100vh;
-      min-height: 100dvh;
+      height: 100dvh;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -266,6 +294,66 @@
       background: var(--gold-light);
       transform: translateY(-2px);
       box-shadow: 0 12px 36px rgba(184, 136, 42, 0.35);
+    }
+
+    .hero-email-preview {
+      width: min(100%, 400px);
+      margin: 42px auto 0;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 24px 52px rgba(0, 0, 0, 0.12);
+      overflow: hidden;
+      border: 1px solid var(--line);
+      transform: perspective(800px) rotateY(-5deg);
+      opacity: 0;
+      animation: heroReveal 0.8s var(--toss-ease) 1.8s forwards;
+    }
+
+    .hero-email-topbar {
+      background: #f2f2f2;
+      border-bottom: 1px solid #e4e4e4;
+      padding: 10px 14px;
+      display: flex;
+      gap: 6px;
+    }
+
+    .hero-email-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #d0d0d0;
+    }
+
+    .hero-email-body {
+      text-align: left;
+      padding: 18px 18px 20px;
+    }
+
+    .hero-email-row + .hero-email-row {
+      margin-top: 8px;
+    }
+
+    .hero-email-key {
+      display: inline-block;
+      width: 66px;
+      font-size: 13px;
+      color: var(--ink-soft);
+      font-weight: 700;
+      vertical-align: top;
+    }
+
+    .hero-email-value {
+      display: inline-block;
+      width: calc(100% - 70px);
+      font-size: 14px;
+      color: var(--ink-mid);
+      line-height: 1.55;
+      vertical-align: top;
+    }
+
+    .hero-email-value--subject {
+      color: var(--ink);
+      font-weight: 700;
     }
 
     /* 떠다니는 장식 */
@@ -570,6 +658,129 @@
     }
 
     /* ======================================
+       [5.5] SOCIAL PROOF
+       ====================================== */
+    .social-proof-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 64px;
+    }
+
+    .social-proof-card {
+      position: relative;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-card);
+      padding: 40px 30px 30px;
+      min-height: 280px;
+      box-shadow: var(--shadow-dark-card);
+      transition: transform 0.4s var(--toss-ease), border-color 0.4s ease, background 0.4s ease;
+      overflow: hidden;
+    }
+
+    .social-proof-card::before {
+      content: '"';
+      position: absolute;
+      top: 8px;
+      left: 18px;
+      font-family: 'Noto Serif KR', serif;
+      font-size: 72px;
+      line-height: 1;
+      color: var(--gold);
+      opacity: 0.18;
+      pointer-events: none;
+    }
+
+    .social-proof-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    .social-proof-quote {
+      position: relative;
+      z-index: 1;
+      font-size: 17px;
+      line-height: 1.8;
+      color: var(--paper);
+      margin-bottom: 22px;
+    }
+
+    .social-proof-author {
+      position: relative;
+      z-index: 1;
+      font-size: 14px;
+      color: var(--gold-light);
+      letter-spacing: -0.01em;
+      font-weight: 500;
+    }
+
+    /* ======================================
+       [5.6] PROCESS
+       ====================================== */
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      align-items: stretch;
+      margin-top: 64px;
+    }
+
+    .process-step {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-card);
+      padding: 28px 22px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      box-shadow: var(--shadow-card);
+    }
+
+    .process-step:not(:last-child)::after {
+      content: '→';
+      position: absolute;
+      right: -18px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 22px;
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    .process-number {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      background: var(--gold);
+      margin-bottom: 14px;
+      font-feature-settings: "tnum";
+    }
+
+    .process-title {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+      color: var(--ink);
+    }
+
+    .process-sub {
+      font-size: 16px;
+      color: var(--ink-mid);
+      line-height: 1.65;
+    }
+
+    /* ======================================
        [6] ARCHIVE
        ====================================== */
     .archive-card,
@@ -733,6 +944,57 @@
     }
 
     /* ======================================
+       [7.5] FAQ
+       ====================================== */
+    .faq-wrap {
+      max-width: 720px;
+      margin: 56px auto 0;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--line);
+    }
+
+    .faq-question {
+      width: 100%;
+      background: transparent;
+      border: none;
+      text-align: left;
+      padding: 22px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      cursor: pointer;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--ink);
+      font-family: inherit;
+    }
+
+    .faq-question-icon {
+      color: var(--gold);
+      font-size: 18px;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.35s ease;
+      font-size: 16px;
+      color: var(--ink-mid);
+      line-height: 1.8;
+      padding: 0;
+    }
+
+    .faq-item.open .faq-answer {
+      max-height: 220px;
+      padding: 0 0 20px;
+    }
+
+    /* ======================================
        [8] FOOTER CTA (SUBSCRIBE)
        ====================================== */
     #subscribe {
@@ -879,6 +1141,10 @@
       color: var(--gold-light);
     }
 
+    .mobile-sticky-cta {
+      display: none;
+    }
+
     /* ======================================
        ANIMATIONS
        ====================================== */
@@ -933,6 +1199,20 @@
     /* ======================================
        RESPONSIVE
        ====================================== */
+    @media (max-width: 980px) {
+      .social-proof-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .process-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .process-step:not(:last-child)::after {
+        display: none;
+      }
+    }
+
     @media (max-width: 768px) {
       :root {
         --section-pad: clamp(80px, 12vw, 120px);
@@ -948,6 +1228,11 @@
       .hero-cta {
         padding: 16px 36px;
         font-size: 16px;
+      }
+
+      .hero-email-preview {
+        transform: none;
+        margin-top: 34px;
       }
 
       .hero-deco { display: none; }
@@ -973,16 +1258,50 @@
       .hero-label,
       .hero-desc,
       .hero-meta,
-      .hero-cta {
-        animation-delay: 0s !important;
+      .hero-cta,
+      .hero-email-preview {
+        animation-delay: 0s;
       }
 
-      .stagger.visible > * {
-        transition-delay: 0s !important;
+      .stagger.visible > *:nth-child(1),
+      .stagger.visible > *:nth-child(2),
+      .stagger.visible > *:nth-child(3),
+      .stagger.visible > *:nth-child(4),
+      .stagger.visible > *:nth-child(5),
+      .stagger.visible > *:nth-child(6) {
+        transition-delay: 0s;
       }
 
       .benefit-item {
-        transition-delay: 0s !important;
+        transition-delay: 0s;
+      }
+
+      .mobile-sticky-cta {
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 99;
+        padding: 12px 20px;
+        background: rgba(13,13,13,0.95);
+        backdrop-filter: blur(12px);
+      }
+
+      .mobile-sticky-cta a {
+        flex: 1;
+        display: block;
+        text-align: center;
+        background: var(--gold);
+        color: white;
+        padding: 16px;
+        font-size: 16px;
+        font-weight: 700;
+        border-radius: 12px;
+      }
+
+      body {
+        padding-bottom: 88px;
       }
     }
 
@@ -998,10 +1317,15 @@
       .subscribe-heading {
         font-size: 26px;
       }
+
+      .faq-question {
+        font-size: 17px;
+      }
     }
   </style>
 </head>
 <body>
+  <div class="scroll-progress" aria-hidden="true"></div>
 
   <!-- ============ [1] NAV ============ -->
   <nav id="nav" aria-label="주 내비게이션">
@@ -1026,6 +1350,19 @@
       <p class="hero-desc">매주 월요일 아침, 딱 5분.<br>변호사·세무사·노무사가 실제로 써먹은 마케팅 방법만 골라 보내드립니다.</p>
       <p class="hero-meta">매주 월요일 · 5분이면 끝 · 무료 · 1초 만에 해지</p>
       <a href="#subscribe" class="hero-cta">월요일 아침, 받아보기</a>
+
+      <div class="hero-email-preview" aria-label="뉴스레터 미리보기">
+        <div class="hero-email-topbar" aria-hidden="true">
+          <span class="hero-email-dot"></span>
+          <span class="hero-email-dot"></span>
+          <span class="hero-email-dot"></span>
+        </div>
+        <div class="hero-email-body">
+          <p class="hero-email-row"><span class="hero-email-key">From:</span><span class="hero-email-value">핸디레터 &lt;letter@handy.co.kr&gt;</span></p>
+          <p class="hero-email-row"><span class="hero-email-key">Subject:</span><span class="hero-email-value hero-email-value--subject">[핸디레터] 네이버 블로그 상위 노출, 2025년엔 이게 달라졌습니다</span></p>
+          <p class="hero-email-row"><span class="hero-email-key">Preview:</span><span class="hero-email-value">스마트블록 개편 이후 전문직 키워드 노출 로직이...</span></p>
+        </div>
+      </div>
     </div>
     <!-- 떠다니는 장식 -->
     <div class="hero-deco hero-deco--a"></div>
@@ -1173,8 +1510,62 @@
     </div>
   </section>
 
-  <!-- 전환: grey → paper -->
-  <div class="section-fade" style="background:linear-gradient(var(--grey-bg),var(--paper))" aria-hidden="true"></div>
+  <!-- 전환: grey → ink -->
+  <div class="section-fade" style="background:linear-gradient(var(--grey-bg),var(--ink))" aria-hidden="true"></div>
+
+  <!-- ============ [5.5] SOCIAL PROOF ============ -->
+  <section id="social-proof" class="section section--ink" aria-label="구독자의 한마디">
+    <div class="section-inner reveal">
+      <p class="section-label">구독자의 한마디</p>
+      <h2 class="section-heading">"매주 월요일이 기다려집니다"</h2>
+    </div>
+    <div class="section-inner">
+      <div class="social-proof-grid stagger">
+        <article class="social-proof-card">
+          <p class="social-proof-quote">"블로그를 3개월째 방치하고 있었는데, 핸디레터 보고 구조를 바꿨더니 한 달 만에 검색 유입이 5배 늘었습니다."</p>
+          <p class="social-proof-author">— 김○○ 변호사 (서울)</p>
+        </article>
+        <article class="social-proof-card">
+          <p class="social-proof-quote">"세무사 광고는 뭘 해도 걸릴까 봐 아무것도 못 했는데, 규제 안에서 할 수 있는 게 이렇게 많은 줄 몰랐어요."</p>
+          <p class="social-proof-author">— 이○○ 세무사 (경기)</p>
+        </article>
+        <article class="social-proof-card">
+          <p class="social-proof-quote">"월요일 아침 5분이면 끝나는데, 그 5분이 한 주 마케팅 방향을 잡아줍니다. 가성비 최고."</p>
+          <p class="social-proof-author">— 박○○ 노무사 (부산)</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 전환: ink → paper -->
+  <div class="section-fade" style="background:linear-gradient(var(--ink),var(--paper))" aria-hidden="true"></div>
+
+  <!-- ============ [5.6] PROCESS ============ -->
+  <section id="how-it-works" class="section section--paper" aria-label="어떻게 받나요">
+    <div class="section-inner reveal">
+      <p class="section-label">간단합니다</p>
+      <h2 class="section-heading">3단계면 끝</h2>
+    </div>
+    <div class="section-inner">
+      <div class="process-grid stagger">
+        <article class="process-step">
+          <div class="process-number">01</div>
+          <h3 class="process-title">이메일 입력</h3>
+          <p class="process-sub">30초면 됩니다</p>
+        </article>
+        <article class="process-step">
+          <div class="process-number">02</div>
+          <h3 class="process-title">월요일 아침 도착</h3>
+          <p class="process-sub">매주 같은 시간, 받은편지함으로</p>
+        </article>
+        <article class="process-step">
+          <div class="process-number">03</div>
+          <h3 class="process-title">5분 읽고 바로 적용</h3>
+          <p class="process-sub">이번 주 마케팅은 정리 끝</p>
+        </article>
+      </div>
+    </div>
+  </section>
 
   <!-- ============ [6] ARCHIVE ============ -->
   <section id="archive" class="section section--paper" aria-label="지난 핸디레터 아카이브">
@@ -1219,13 +1610,13 @@
     <div class="section-inner reveal">
       <p class="section-label">블로그</p>
       <h2 class="section-heading">모르면 손해, 알면 의뢰인이 늘어나는 이야기</h2>
-      <a href="#" class="section-link">블로그 더보기 →</a>
+      <a href="https://blog.naver.com/PostList.naver?blogId=handy__&from=postList&categoryNo=26" target="_blank" class="section-link">블로그 더보기 →</a>
     </div>
     <div class="section-inner">
       <div class="card-grid stagger">
         <a href="https://blog.naver.com/handy__/224215420829" target="_blank" class="blog-card">
           <div class="blog-thumb">
-            <img src="images/thumb1.png" alt="숏폼 영상 제작, 조회수 9만 회에 문의가 폭주했습니다">
+            <img src="images/thumb1.png" alt="숏폼 영상 제작, 조회수 9만 회에 문의가 폭주했습니다" loading="lazy">
           </div>
           <div class="blog-body">
             <div class="blog-category">숏폼 · 영상</div>
@@ -1235,7 +1626,7 @@
         </a>
         <a href="https://blog.naver.com/handy__/224215184130" target="_blank" class="blog-card">
           <div class="blog-thumb">
-            <img src="images/thumb2.gif" alt="변호사 블로그 마케팅, 이제는 OO를 보여줘야 합니다">
+            <img src="images/thumb2.gif" alt="변호사 블로그 마케팅, 이제는 OO를 보여줘야 합니다" loading="lazy">
           </div>
           <div class="blog-body">
             <div class="blog-category">블로그 마케팅</div>
@@ -1245,7 +1636,7 @@
         </a>
         <a href="https://blog.naver.com/handy__/224213089527" target="_blank" class="blog-card">
           <div class="blog-thumb">
-            <img src="images/thumb3.jpg" alt="상위노출 공식이 바뀌었습니다">
+            <img src="images/thumb3.jpg" alt="상위노출 공식이 바뀌었습니다" loading="lazy">
           </div>
           <div class="blog-body">
             <div class="blog-category">SEO · 상위노출</div>
@@ -1257,8 +1648,56 @@
     </div>
   </section>
 
-  <!-- 전환: grey → ink -->
-  <div class="section-fade" style="background:linear-gradient(var(--grey-bg),var(--ink))" aria-hidden="true"></div>
+  <!-- 전환: grey → paper -->
+  <div class="section-fade" style="background:linear-gradient(var(--grey-bg),var(--paper))" aria-hidden="true"></div>
+
+  <!-- ============ [7.5] FAQ ============ -->
+  <section id="faq" class="section section--paper" aria-label="자주 묻는 질문">
+    <div class="section-inner reveal">
+      <p class="section-label">자주 묻는 질문</p>
+      <h2 class="section-heading">궁금한 점이 있으신가요?</h2>
+    </div>
+    <div class="faq-wrap reveal">
+      <article class="faq-item">
+        <button class="faq-question" type="button" aria-expanded="false">
+          <span>Q1: 정말 무료인가요?</span>
+          <span class="faq-question-icon" aria-hidden="true">▼</span>
+        </button>
+        <p class="faq-answer">A1: 네, 완전 무료입니다. 숨겨진 비용 없습니다. 앞으로도 무료로 유지할 예정이에요.</p>
+      </article>
+      <article class="faq-item">
+        <button class="faq-question" type="button" aria-expanded="false">
+          <span>Q2: 어떤 내용이 담기나요?</span>
+          <span class="faq-question-icon" aria-hidden="true">▼</span>
+        </button>
+        <p class="faq-answer">A2: 전문직 사무소에 맞는 블로그 운영법, 검색 상위 노출 전략, AI 활용법, 광고 규제 안에서 의뢰인을 만드는 방법 등을 다룹니다.</p>
+      </article>
+      <article class="faq-item">
+        <button class="faq-question" type="button" aria-expanded="false">
+          <span>Q3: 해지는 어떻게 하나요?</span>
+          <span class="faq-question-icon" aria-hidden="true">▼</span>
+        </button>
+        <p class="faq-answer">A3: 메일 하단 '수신 취소' 링크를 클릭하면 1초 만에 해지됩니다. 어떤 이유도 묻지 않습니다.</p>
+      </article>
+      <article class="faq-item">
+        <button class="faq-question" type="button" aria-expanded="false">
+          <span>Q4: 매주 어떤 요일에 오나요?</span>
+          <span class="faq-question-icon" aria-hidden="true">▼</span>
+        </button>
+        <p class="faq-answer">A4: 매주 월요일 아침에 발송됩니다. 출근길이나 점심 전에 읽기 딱 좋은 분량이에요.</p>
+      </article>
+      <article class="faq-item">
+        <button class="faq-question" type="button" aria-expanded="false">
+          <span>Q5: 지난 뉴스레터도 볼 수 있나요?</span>
+          <span class="faq-question-icon" aria-hidden="true">▼</span>
+        </button>
+        <p class="faq-answer">A5: 구독하면 지금까지 발행된 모든 아카이브를 바로 열람할 수 있습니다.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- 전환: paper → ink -->
+  <div class="section-fade" style="background:linear-gradient(var(--paper),var(--ink))" aria-hidden="true"></div>
 
   <!-- ============ [8] FOOTER CTA + SUBSCRIBE ============ -->
   <section id="subscribe" aria-label="구독 유도">
@@ -1290,10 +1729,14 @@
     </div>
   </footer>
 
+  <div class="mobile-sticky-cta">
+    <a href="#subscribe">월요일 아침, 받아보기</a>
+  </div>
+
   <script>
     // IntersectionObserver for scroll animations
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
+      entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
           observer.unobserve(entry.target);
@@ -1301,12 +1744,14 @@
       });
     }, { threshold: 0.15 });
 
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    document.querySelectorAll('.reveal').forEach((el) => {
+      observer.observe(el);
+    });
 
     // Stagger children
-    document.querySelectorAll('.stagger').forEach(parent => {
+    document.querySelectorAll('.stagger').forEach((parent) => {
       const io = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
+        entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add('visible');
             io.unobserve(entry.target);
@@ -1316,25 +1761,36 @@
       io.observe(parent);
     });
 
-    // Nav background on scroll
+    // Scroll UI (nav + progress)
     window.addEventListener('scroll', () => {
-      document.querySelector('#nav').classList.toggle('scrolled', window.scrollY > 50);
+      const nav = document.querySelector('#nav');
+      if (nav) {
+        nav.classList.toggle('scrolled', window.scrollY > 50);
+      }
+
+      const winScroll = document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+      const progressBar = document.querySelector('.scroll-progress');
+      if (progressBar) {
+        progressBar.style.width = `${scrolled}%`;
+      }
     });
 
     // Counter animation
     const counterObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
+      entries.forEach((entry) => {
         if (entry.isIntersecting) {
           const el = entry.target;
-          const target = parseInt(el.dataset.target);
+          const target = Number.parseInt(el.dataset.target, 10);
           let current = 0;
           const step = () => {
             current += Math.ceil(target / 60);
             if (current >= target) {
-              el.textContent = target.toLocaleString() + '+';
+              el.textContent = `${target.toLocaleString()}+`;
               return;
             }
-            el.textContent = current.toLocaleString() + '+';
+            el.textContent = `${current.toLocaleString()}+`;
             requestAnimationFrame(step);
           };
           requestAnimationFrame(step);
@@ -1343,7 +1799,25 @@
       });
     }, { threshold: 0.5 });
 
-    document.querySelectorAll('[data-counter]').forEach(el => counterObserver.observe(el));
+    document.querySelectorAll('[data-counter]').forEach((el) => {
+      counterObserver.observe(el);
+    });
+
+    // FAQ toggle
+    document.querySelectorAll('.faq-item').forEach((item) => {
+      const button = item.querySelector('.faq-question');
+      const icon = item.querySelector('.faq-question-icon');
+
+      if (!button || !icon) {
+        return;
+      }
+
+      button.addEventListener('click', () => {
+        const isOpen = item.classList.toggle('open');
+        button.setAttribute('aria-expanded', String(isOpen));
+        icon.textContent = isOpen ? '▲' : '▼';
+      });
+    });
   </script>
 
 </body>
