@@ -196,7 +196,7 @@
        ====================================== */
     #hero {
       min-height: 100vh;
-      min-height: 100dvh;
+      height: 100dvh;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -204,7 +204,7 @@
       position: relative;
       background: var(--paper);
       overflow: hidden;
-      padding: 72px 5vw 80px;
+      padding: 72px 5vw 0;
     }
 
     /* Hero 배경 골드 글로우 (800px) */
@@ -1152,107 +1152,6 @@
     }
 
     /* ======================================
-       IMAGE VISUALS
-       ====================================== */
-    .hero-visual {
-      margin-top: 60px;
-      max-width: 800px;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 20px 60px rgba(3, 55, 112, 0.12);
-      position: relative;
-      opacity: 0;
-      animation: heroReveal 0.8s var(--toss-ease) 2s forwards;
-    }
-
-    .hero-visual img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    .hero-visual::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 80px;
-      background: linear-gradient(transparent, var(--paper));
-      pointer-events: none;
-    }
-
-    .section-visual {
-      max-width: 800px;
-      margin: 0 auto 60px;
-      border-radius: var(--radius-card);
-      overflow: hidden;
-      box-shadow: 0 12px 40px rgba(3, 55, 112, 0.08);
-    }
-
-    .section-visual img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    .testimonial-image {
-      width: 200px;
-      height: 200px;
-      margin: 0 auto 20px;
-      border-radius: var(--radius-card);
-      overflow: hidden;
-      position: relative;
-      z-index: 1;
-    }
-
-    .testimonial-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .process-visual {
-      max-width: 900px;
-      margin: 48px auto 0;
-      border-radius: var(--radius-card);
-      overflow: hidden;
-      box-shadow: 0 12px 40px rgba(3, 55, 112, 0.08);
-    }
-
-    .process-visual img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    .client-reviews-strip {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .client-review-card {
-      border-radius: var(--radius-card);
-      overflow: hidden;
-      box-shadow: var(--shadow-card);
-      transition: transform 0.4s var(--toss-ease), box-shadow 0.4s var(--toss-ease);
-    }
-
-    .client-review-card:hover {
-      transform: translateY(-6px);
-      box-shadow: var(--shadow-card-hover);
-    }
-
-    .client-review-card img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    /* ======================================
        ANIMATIONS
        ====================================== */
     @keyframes heroReveal {
@@ -1318,10 +1217,6 @@
       .process-step:not(:last-child)::after {
         display: none;
       }
-
-      .client-reviews-strip {
-        grid-template-columns: 1fr 1fr;
-      }
     }
 
     @media (max-width: 768px) {
@@ -1370,8 +1265,7 @@
       .hero-desc,
       .hero-meta,
       .hero-cta,
-      .hero-email-preview,
-      .hero-visual {
+      .hero-email-preview {
         animation-delay: 0s;
       }
 
@@ -1414,32 +1308,6 @@
 
       body {
         padding-bottom: 88px;
-      }
-
-      .hero-visual {
-        margin-top: 34px;
-        border-radius: 16px;
-      }
-
-      .section-visual {
-        margin-bottom: 40px;
-      }
-
-      .testimonial-image {
-        width: 160px;
-        height: 160px;
-      }
-
-      .client-reviews-strip {
-        grid-template-columns: 1fr;
-        gap: 16px;
-        max-width: 320px;
-        margin-left: auto;
-        margin-right: auto;
-      }
-
-      .process-visual {
-        margin-top: 32px;
       }
     }
 
@@ -1500,9 +1368,6 @@
           <p class="hero-email-row"><span class="hero-email-key">Preview:</span><span class="hero-email-value">스마트블록 개편 이후 전문직 키워드 노출 로직이...</span></p>
         </div>
       </div>
-      <div class="hero-visual">
-        <img src="images/hero-bg.png" alt="전문직 마케팅" loading="lazy">
-      </div>
     </div>
     <!-- 떠다니는 장식 -->
     <div class="hero-deco hero-deco--a"></div>
@@ -1518,9 +1383,6 @@
       <h2 class="section-heading">일반 마케팅을 전문직에 그대로 적용하면<br>돈만 날립니다</h2>
     </div>
     <div class="section-inner">
-      <div class="section-visual reveal">
-        <img src="images/service-diff.png" alt="전문직만 담당하는 차별화된 서비스" loading="lazy">
-      </div>
       <div class="card-grid stagger">
         <div class="profession-card">
           <div class="profession-icon">
@@ -1665,23 +1527,14 @@
     <div class="section-inner">
       <div class="social-proof-grid stagger">
         <article class="social-proof-card">
-          <div class="testimonial-image">
-            <img src="images/chat1.png" alt="실제 고객 문의" loading="lazy">
-          </div>
           <p class="social-proof-quote">"블로그를 3개월째 방치하고 있었는데, 핸디레터 보고 구조를 바꿨더니 한 달 만에 검색 유입이 5배 늘었습니다."</p>
           <p class="social-proof-author">— 김○○ 변호사 (서울)</p>
         </article>
         <article class="social-proof-card">
-          <div class="testimonial-image">
-            <img src="images/chat2.png" alt="실제 고객 문의" loading="lazy">
-          </div>
           <p class="social-proof-quote">"세무사 광고는 뭘 해도 걸릴까 봐 아무것도 못 했는데, 규제 안에서 할 수 있는 게 이렇게 많은 줄 몰랐어요."</p>
           <p class="social-proof-author">— 이○○ 세무사 (경기)</p>
         </article>
         <article class="social-proof-card">
-          <div class="testimonial-image">
-            <img src="images/chat3.png" alt="실제 고객 문의" loading="lazy">
-          </div>
           <p class="social-proof-quote">"월요일 아침 5분이면 끝나는데, 그 5분이 한 주 마케팅 방향을 잡아줍니다. 가성비 최고."</p>
           <p class="social-proof-author">— 박○○ 노무사 (부산)</p>
         </article>
@@ -1716,28 +1569,8 @@
           <p class="process-sub">이번 주 마케팅은 정리 끝</p>
         </article>
       </div>
-      <div class="process-visual reveal">
-        <img src="images/process-full.png" alt="서비스 프로세스" loading="lazy">
-      </div>
     </div>
   </section>
-
-  <!-- 클라이언트 후기 이미지 -->
-  <div class="section section--paper" style="padding-top: 0; padding-bottom: 0;">
-    <div class="section-inner">
-      <div class="client-reviews-strip stagger">
-        <div class="client-review-card">
-          <img src="images/client-review1.png" alt="클라이언트 후기" loading="lazy">
-        </div>
-        <div class="client-review-card">
-          <img src="images/client-review2.png" alt="클라이언트 후기" loading="lazy">
-        </div>
-        <div class="client-review-card">
-          <img src="images/client-review3.png" alt="클라이언트 후기" loading="lazy">
-        </div>
-      </div>
-    </div>
-  </div>
 
   <!-- ============ [6] ARCHIVE ============ -->
   <section id="archive" class="section section--paper" aria-label="지난 핸디레터 아카이브">
