@@ -41,7 +41,7 @@ const fetchLatestPosts = async () => {
   const listUrl = `https://blog.naver.com/PostList.naver?blogId=${BLOG_ID}&categoryNo=${CATEGORY_NO}&widgetTypeCall=true&noTrackingCode=true&directAccess=true`;
   const html = (await fetchUrl(listUrl)).toString('utf-8');
 
-  const postRegex = /PostView\.naver\?blogId=handy__&logNo=(\d+)&categoryNo=26[^"]*"[^>]*>([^<]+)/g;
+  const postRegex = /PostView\.naver\?blogId=handy__&logNo=(\d+)&categoryNo=26&parentCategoryNo=0[^"]*"[^>]*>([^<]+)/g;
   const seen = new Set();
   const posts = [];
 
