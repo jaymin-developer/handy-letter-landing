@@ -1025,6 +1025,295 @@
       .fade-in-d3 {
         transition-delay: 0s;
       }
+
+      /* 모바일 hero 애니메이션 간소화 */
+      .hero-line {
+        animation-delay: 0s !important;
+      }
+      #hero .hero-desc,
+      #hero .hero-meta,
+      #hero .section-label {
+        animation-delay: 0s !important;
+      }
+      #hero .subscribe-card {
+        animation-delay: 0s !important;
+      }
+      .hero-deco { display: none; }
+      #hero::before {
+        width: 300px; height: 300px;
+        right: -50px; top: -50px;
+      }
+      .section-transition { height: 40px; }
+      .archive-card-locked,
+      .archive-card-locked:last-child { transform: none; }
+      .section-diamond { padding: 16px 0; letter-spacing: 10px; }
+      .profession-icon svg { width: 32px; height: 32px; }
+      .stagger-children .stagger-item { transition-delay: 0s !important; }
+    }
+
+    /* =============================================
+       토스 스타일 비주얼 업그레이드
+       ============================================= */
+
+    /* 커스텀 스크롤바 */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--paper); }
+    ::-webkit-scrollbar-thumb { background: var(--gold-light); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+
+    /* Hero 배경 골드 글로우 */
+    #hero::before {
+      content: '';
+      position: absolute;
+      width: 600px; height: 600px;
+      right: -100px; top: -100px;
+      background: radial-gradient(circle, rgba(184,136,42,0.08) 0%, transparent 70%);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* 떠다니는 장식 키프레임 */
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(3deg); }
+    }
+    @keyframes float-slow {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+    @keyframes pulse-glow {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(1.15); }
+    }
+    @keyframes spin-slow {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* 장식 요소 */
+    .hero-deco {
+      position: absolute;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .hero-deco-circle {
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--gold-light), var(--gold));
+      opacity: 0.15;
+      animation: float 6s ease-in-out infinite;
+    }
+    .hero-deco-line {
+      width: 40px; height: 2px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      opacity: 0.2;
+      animation: float-slow 8s ease-in-out infinite;
+    }
+    .hero-deco-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+      opacity: 0.12;
+      animation: pulse-glow 4s ease-in-out infinite;
+    }
+    .hero-deco-ring {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      border: 1px solid var(--gold);
+      opacity: 0.06;
+      animation: spin-slow 25s linear infinite;
+    }
+    .hero-deco-diamond {
+      width: 12px; height: 12px;
+      background: var(--gold);
+      opacity: 0.1;
+      transform: rotate(45deg);
+      animation: float 7s ease-in-out infinite;
+    }
+
+    /* Hero H1 라인별 staggered 등장 */
+    @keyframes heroReveal {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .hero-line {
+      display: block;
+      opacity: 0;
+      transform: translateY(40px);
+      animation: heroReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .hero-line:nth-child(1) { animation-delay: 0.2s; }
+    .hero-line:nth-child(2) { animation-delay: 0.5s; }
+    .hero-line:nth-child(3) { animation-delay: 0.8s; }
+
+    /* Hero 설명/메타 등장 */
+    #hero .hero-desc {
+      opacity: 0;
+      animation: heroReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: 1.0s;
+    }
+    #hero .hero-meta {
+      opacity: 0;
+      animation: heroReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: 1.15s;
+    }
+    #hero .section-label {
+      opacity: 0;
+      animation: heroReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: 0.05s;
+    }
+
+    /* 구독 카드 입장 + 글로우 */
+    @keyframes cardSlideIn {
+      from { opacity: 0; transform: translateX(40px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes cardGlow {
+      0%, 100% { box-shadow: var(--shadow-hero-card); }
+      50% { box-shadow: var(--shadow-hero-card), 0 0 40px rgba(184,136,42,0.08); }
+    }
+    #hero .subscribe-card {
+      opacity: 0;
+      animation: cardSlideIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
+      border-radius: 12px;
+    }
+    #hero .subscribe-card.card-glowing {
+      animation: cardSlideIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards,
+                 cardGlow 3s ease-in-out 2s infinite;
+    }
+
+    /* Nav CTA 골드 그래디언트 + shimmer */
+    a.nav-cta {
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      color: white;
+      border-color: transparent;
+      border-radius: 6px;
+      position: relative;
+      overflow: hidden;
+    }
+    a.nav-cta::after {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+      transition: left 0.6s ease;
+    }
+    a.nav-cta:hover {
+      background: linear-gradient(135deg, var(--gold-light), var(--gold));
+      color: white;
+      border-color: transparent;
+      box-shadow: 0 4px 20px rgba(184, 136, 42, 0.35);
+    }
+    a.nav-cta:hover::after { left: 100%; }
+
+    /* 직군 카드 SVG 아이콘 */
+    .profession-icon { margin-bottom: 12px; opacity: 0.7; }
+    .profession-icon svg { width: 40px; height: 40px; }
+
+    /* 카드 border-radius — 토스 스타일 */
+    .profession-card { border-radius: 12px; }
+    .scale-card { border-radius: 12px; }
+    .archive-card, .archive-card-locked { border-radius: 12px; overflow: hidden; }
+    .blog-card { border-radius: 12px; overflow: hidden; }
+    .blog-thumb { border-radius: 12px 12px 0 0; }
+
+    /* 아카이브 카드 3D 스태킹 */
+    .archive-grid { perspective: 1200px; }
+    .archive-card-locked {
+      transform: translateZ(-8px) scale(0.98);
+      transform-style: preserve-3d;
+    }
+    .archive-card-locked:last-child {
+      transform: translateZ(-16px) scale(0.96);
+    }
+
+    /* 섹션 전환 그라디언트 */
+    .section-transition {
+      height: 80px;
+      position: relative;
+      z-index: 1;
+    }
+    .section-transition-dark {
+      background: linear-gradient(to bottom, var(--paper), var(--ink));
+    }
+    .section-transition-light {
+      background: linear-gradient(to bottom, var(--ink), var(--paper));
+    }
+
+    /* 섹션 구분 다이아몬드 */
+    .section-diamond {
+      text-align: center;
+      padding: 20px 0;
+      color: var(--gold);
+      font-size: 8px;
+      letter-spacing: 12px;
+      opacity: 0.35;
+    }
+
+    /* 강화된 스크롤 애니메이션 */
+    .slide-left {
+      opacity: 0;
+      transform: translateX(-60px);
+      transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .slide-left.visible { opacity: 1; transform: translateX(0); }
+
+    .slide-right {
+      opacity: 0;
+      transform: translateX(60px);
+      transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .slide-right.visible { opacity: 1; transform: translateX(0); }
+
+    .scale-up {
+      opacity: 0;
+      transform: scale(0.92);
+      transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .scale-up.visible { opacity: 1; transform: scale(1); }
+
+    /* Staggered children */
+    .stagger-children .stagger-item {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .stagger-children .stagger-item:nth-child(1) { transition-delay: 0s; }
+    .stagger-children .stagger-item:nth-child(2) { transition-delay: 0.15s; }
+    .stagger-children .stagger-item:nth-child(3) { transition-delay: 0.3s; }
+    .stagger-children .stagger-item:nth-child(4) { transition-delay: 0.45s; }
+    .stagger-children .stagger-item:nth-child(5) { transition-delay: 0.6s; }
+    .stagger-children .stagger-item:nth-child(6) { transition-delay: 0.75s; }
+    .stagger-children.visible .stagger-item {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Benefit 아이템 개별 등장 */
+    .benefit-item {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .benefit-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Footer CTA 은은한 글로우 */
+    @keyframes footerPulse {
+      0%, 100% { opacity: 0; }
+      50% { opacity: 1; }
+    }
+    #footer-cta .footer-cta-inner::before {
+      content: '';
+      position: absolute;
+      top: -60px; left: 50%; transform: translateX(-50%);
+      width: 200px; height: 200px;
+      background: radial-gradient(circle, rgba(184,136,42,0.06) 0%, transparent 70%);
+      animation: footerPulse 4s ease-in-out infinite;
+      pointer-events: none;
     }
   </style>
 </head>
@@ -1044,7 +1333,7 @@
     <div class="hero-grid">
       <div class="hero-left">
         <div class="section-label">2,000+ 전문직 구독 중 · 무료</div>
-        <h1 class="hero-h1">옆 사무소는<br><em>의뢰인이 넘치는데,</em><br>나만 모르는 게 있는 걸까?</h1>
+        <h1 class="hero-h1"><span class="hero-line">옆 사무소는</span><span class="hero-line"><em>의뢰인이 넘치는데,</em></span><span class="hero-line">나만 모르는 게 있는 걸까?</span></h1>
         <p class="hero-desc">매주 월요일 아침, 딱 5분.<br>변호사·세무사·노무사가 실제로 써먹은 마케팅 방법만 골라 보내드립니다.</p>
         <p class="hero-meta">매주 월요일 · 5분이면 끝 · 무료 · 1초 만에 해지</p>
       </div>
@@ -1057,6 +1346,14 @@
         <p class="subscribe-card-note"><span aria-hidden="true">✓</span> 부담 없이 시작하세요. 해지는 클릭 한 번이면 됩니다</p>
       </div>
     </div>
+    <!-- 떠다니는 장식 요소 -->
+    <div class="hero-deco hero-deco-circle" style="top:15%;left:6%;animation-delay:-2s"></div>
+    <div class="hero-deco hero-deco-line" style="top:32%;right:14%;animation-delay:-4s"></div>
+    <div class="hero-deco hero-deco-dot" style="top:22%;left:18%;animation-delay:-1s"></div>
+    <div class="hero-deco hero-deco-dot" style="top:72%;left:8%;animation-delay:-3s"></div>
+    <div class="hero-deco hero-deco-dot" style="top:58%;right:6%;animation-delay:-5s"></div>
+    <div class="hero-deco hero-deco-ring" style="top:62%;left:2%;animation-delay:-7s"></div>
+    <div class="hero-deco hero-deco-diamond" style="top:42%;right:20%;animation-delay:-2.5s"></div>
   </section>
 
   <section id="target-profession" aria-label="대상 직군">
@@ -1065,6 +1362,7 @@
       <h2 class="section-heading">일반 마케팅을 전문직에 그대로 적용하면<br>돈만 날립니다</h2>
       <div class="profession-grid">
         <div class="profession-card">
+          <div class="profession-icon"><svg viewBox="0 0 40 40" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6v26M14 32h12M8 12h24"/><path d="M5 22h6M8 12L5 22M8 12l3 10"/><path d="M29 22h6M32 12l-3 10M32 12l3 10"/></svg></div>
           <div class="profession-number">01</div>
           <h3 class="profession-title">변호사 · 법무사</h3>
           <div class="profession-tags">
@@ -1076,6 +1374,7 @@
           </div>
         </div>
         <div class="profession-card">
+          <div class="profession-icon"><svg viewBox="0 0 40 40" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 34V24M16 34V18M24 34V12M32 34V8"/><path d="M4 34h32"/></svg></div>
           <div class="profession-number">02</div>
           <h3 class="profession-title">세무사 · 회계사</h3>
           <div class="profession-tags">
@@ -1086,6 +1385,7 @@
           </div>
         </div>
         <div class="profession-card">
+          <div class="profession-icon"><svg viewBox="0 0 40 40" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 22h8l4-4 4 4 4-4 4 4h8"/><path d="M10 22v6M30 22v6"/></svg></div>
           <div class="profession-number">03</div>
           <h3 class="profession-title">노무사</h3>
           <div class="profession-tags">
@@ -1098,6 +1398,8 @@
       </div>
     </div>
   </section>
+
+  <div class="section-transition section-transition-dark" aria-hidden="true"></div>
 
   <section id="target-scale" aria-label="사무소 규모별 대상">
     <div class="section-container">
@@ -1125,6 +1427,8 @@
       </div>
     </div>
   </section>
+
+  <div class="section-transition section-transition-light" aria-hidden="true"></div>
 
   <section id="benefits" aria-label="핸디레터가 필요한 순간">
     <div class="section-container">
@@ -1172,6 +1476,8 @@
     </div>
   </section>
 
+  <div class="section-diamond" aria-hidden="true">&#9670; &middot; &#9670; &middot; &#9670;</div>
+
   <section id="archive" aria-label="지난 핸디레터 아카이브">
     <div class="section-container">
       <div class="archive-header">
@@ -1207,6 +1513,8 @@
       </div>
     </div>
   </section>
+
+  <div class="section-diamond" aria-hidden="true">&#9670; &middot; &#9670; &middot; &#9670;</div>
 
   <section id="blog" aria-label="블로그">
     <div class="section-container">
@@ -1270,7 +1578,6 @@
   </footer>
 
   <script>
-    /* 스크롤 페이드인 — IntersectionObserver */
     (function() {
       var io = new IntersectionObserver(function(entries) {
         entries.forEach(function(e) {
@@ -1279,27 +1586,56 @@
             io.unobserve(e.target);
           }
         });
-      }, { threshold: 0.1 });
+      }, { threshold: 0.12 });
 
-      /* 섹션 단위 페이드인 */
-      var sections = document.querySelectorAll(
+      document.querySelectorAll(
         '#target-profession .section-container,' +
         '#target-scale .section-container,' +
-        '#benefits .section-container,' +
         '#archive .section-container,' +
         '#blog .section-container,' +
         '.footer-cta-inner'
-      );
-      sections.forEach(function(el) { el.classList.add('fade-in'); io.observe(el); });
+      ).forEach(function(el) { el.classList.add('fade-in'); io.observe(el); });
 
-      /* 그리드 카드 시차 등장 */
-      var grids = document.querySelectorAll('.profession-grid, .scale-grid, .archive-grid, .blog-grid');
-      grids.forEach(function(g) {
-        Array.prototype.forEach.call(g.children, function(card, i) {
-          card.classList.add('fade-in', 'fade-in-d' + Math.min(i + 1, 3));
-          io.observe(card);
+      document.querySelectorAll('.profession-grid, .scale-grid, .archive-grid, .blog-grid').forEach(function(g) {
+        g.classList.add('stagger-children');
+        Array.prototype.forEach.call(g.children, function(card) {
+          card.classList.add('stagger-item');
         });
+        io.observe(g);
       });
+
+      document.querySelectorAll('.benefit-item').forEach(function(item, i) {
+        item.style.transitionDelay = (i * 0.12) + 's';
+        io.observe(item);
+      });
+
+      var heroLabel = document.querySelector('#hero .section-label');
+      var cIO = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) { animateCounter(e.target); cIO.unobserve(e.target); }
+        });
+      }, { threshold: 0.5 });
+      if (heroLabel) { cIO.observe(heroLabel); }
+
+      function animateCounter(el) {
+        var target = 2000, duration = 1800, start = null;
+        var full = el.textContent;
+        var suffix = full.replace(/^[\d,]+/, '');
+        function step(ts) {
+          if (!start) start = ts;
+          var p = Math.min((ts - start) / duration, 1);
+          var eased = 1 - Math.pow(1 - p, 3);
+          var cur = Math.floor(eased * target);
+          el.childNodes[el.childNodes.length - 1].textContent = cur.toLocaleString() + suffix;
+          if (p < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      }
+
+      setTimeout(function() {
+        var card = document.querySelector('#hero .subscribe-card');
+        if (card) card.classList.add('card-glowing');
+      }, 2000);
     })();
   </script>
 
